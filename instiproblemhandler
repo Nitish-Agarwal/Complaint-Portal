@@ -1,0 +1,300 @@
+package com.orangecoders.nitish.iitdcomplaintportal;
+
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ExpandableListView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+public class InstiProblemHandler extends AppCompatActivity {
+    private String username;
+    private String name;
+    private String tablename, url;
+    final String[] id = new String[1000];
+    final String[] complaint = new String[1000];
+    final String[] complainer = new String[1000];
+    final String[] status = new String[1000];
+    final String[] upvotes = new String[1000];
+    final String[] downvotes = new String[1000];
+    final String[] date = new String[1000];
+    final int[] n = {0};
+    String idd;
+    ExpandableListAdapter listAdapter;
+    ExpandableListView expListView;
+    List<String> listDataHeader;
+    HashMap<String, List<String>> listDataChild;
+    TextView log_out;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_insti_problem_handler);
+        log_out = (TextView) findViewById(R.id.log_out);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Intent intent = getIntent();
+        username = intent.getExtras().getString("username");
+        name = intent.getExtras().getString("name");
+        TextView t = (TextView) findViewById(R.id.welcome);
+        t.setText("Welcome " + name);
+        setSupportActionBar(toolbar);
+         url = "http://10.192.10.186/project/insti_comp.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Result handling
+                        try {
+                            JSONArray j_respose = new JSONArray(response);
+                            n[0] = j_respose.length();
+                            for(int i = 0; i < n[0]; i++){
+                                JSONObject jobj = j_respose.getJSONObject(i);
+                                id[i] = jobj.getString("sr");
+                                complaint[i] = jobj.getString("complaint");
+                                complainer[i] = jobj.getString("complainer");
+                                date[i] = jobj.getString("date");
+                                status[i] = jobj.getString("status");
+                                upvotes[i] = jobj.getString("upvotes");
+                                downvotes[i] = jobj.getString("downvotes");
+                            }
+                            makeTable();
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                // Error handling
+                Toast.makeText(InstiProblemHandler.this, error.toString(), Toast.LENGTH_LONG).show();
+                error.printStackTrace();
+
+            }
+        });
+
+        Volley.newRequestQueue(this).add(stringRequest);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.aboutus) {
+            Intent intent = new Intent(getApplicationContext(), Aboutus.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.logout) {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    private void makeTable() {
+        TableLayout tl = (TableLayout) findViewById(R.id.mainTable);
+        TableRow tr1a = new TableRow(this);
+        tr1a.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+        final TextView textviewa = new TextView(this);
+        final TextView textview1a = new TextView(this);
+        final TextView textview2a = new TextView(this);
+        final TextView textview3a = new TextView(this);
+        final TextView textview4a = new TextView(this);
+        final TextView textview5a = new TextView(this);
+        final TextView textview6a = new TextView(this);
+        final TextView textview7a = new TextView(this);
+
+        textviewa.setText("");
+        textview1a.setText("Co. ID");
+        textview2a.setText("Complaint Description");
+        textview3a.setText("Complainer");
+        textview4a.setText("Date");
+        textview5a.setText("Status");
+        textview6a.setText("Upvotes");
+        textview7a.setText("Downvotes");
+
+//textview.getTextColors(R.color.)
+        textviewa.setTextColor(Color.BLACK);
+        textview1a.setTextColor(Color.BLACK);
+        textview2a.setTextColor(Color.BLACK);
+        textview3a.setTextColor(Color.BLACK);
+        textview4a.setTextColor(Color.BLACK);
+        textview5a.setTextColor(Color.BLACK);
+        textview6a.setTextColor(Color.BLACK);
+        textview7a.setTextColor(Color.BLACK);
+
+        textviewa.setTextSize(16);
+        textview1a.setTextSize(16);
+        textview2a.setTextSize(16);
+        textview3a.setTextSize(16);
+        textview4a.setTextSize(16);
+        textview5a.setTextSize(16);
+        textview6a.setTextSize(16);
+        textview7a.setTextSize(16);
+
+        textviewa.setPadding(16, 2, 16, 2);
+        textview1a.setPadding(16, 2, 16, 2);
+        textview2a.setPadding(16, 2, 16, 2);
+        textview3a.setPadding(16, 2, 16, 2);
+        textview4a.setPadding(16, 2, 16, 2);
+        textview5a.setPadding(16, 2, 16, 2);
+        textview6a.setPadding(16, 2, 16, 2);
+        textview7a.setPadding(16, 2, 16, 2);
+
+        textviewa.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        textview1a.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        textview2a.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        textview3a.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        textview4a.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        textview5a.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        textview6a.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        textview7a.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
+        tr1a.addView(textviewa);
+        tr1a.addView(textview1a);
+        tr1a.addView(textview2a);
+        tr1a.addView(textview3a);
+        tr1a.addView(textview4a);
+        tr1a.addView(textview5a);
+        tr1a.addView(textview6a);
+        tr1a.addView(textview7a);
+
+        tl.addView(tr1a);
+
+        for (int i = 0; i < n[0]; i++) {
+            TableRow tr1 = new TableRow(this);
+            tr1.setId(i);
+            tr1.setOnClickListener(new View.OnClickListener() {
+                                       @Override
+                                       public void onClick(View v) {
+                                           // TODO Auto-generated method stub
+
+                                           idd = Integer.toString(v.getId() + 1);
+                                           Toast.makeText(InstiProblemHandler.this, idd, Toast.LENGTH_SHORT).show();
+                                           Intent intent = new Intent(getApplicationContext(), prob_sta_votes.class);
+                                           intent.putExtra("id", id[v.getId()]);
+                                           intent.putExtra("tablename", "insti_comp");
+                                           intent.putExtra("complaint", complaint[v.getId()]);
+                                           intent.putExtra("date", date[v.getId()]);
+                                           intent.putExtra("status", status[v.getId()]);
+                                           intent.putExtra("upvotes", upvotes[v.getId()]);
+                                           intent.putExtra("downvotes", downvotes[v.getId()]);
+                                           startActivity(intent);
+                                           finish();
+                                       }
+                                   });
+
+            tr1.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+
+            final TextView textview = new TextView(this);
+            final TextView textview1 = new TextView(this);
+            final TextView textview2 = new TextView(this);
+            final TextView textview3 = new TextView(this);
+            final TextView textview4 = new TextView(this);
+            final TextView textview5 = new TextView(this);
+            final TextView textview6 = new TextView(this);
+            final TextView textview7 = new TextView(this);
+
+            textview.setText("");
+            textview1.setText(id[i]);
+            textview2.setText(complaint[i]);
+            textview3.setText(complainer[i]);
+            textview4.setText(date[i]);
+            textview5.setText(status[i]);
+            textview6.setText(upvotes[i]);
+            textview7.setText(downvotes[i]);
+
+//textview.getTextColors(R.color.)
+            textview.setTextColor(Color.BLACK);
+            textview1.setTextColor(Color.BLACK);
+            textview2.setTextColor(Color.BLACK);
+            textview3.setTextColor(Color.BLACK);
+            textview4.setTextColor(Color.BLACK);
+            textview5.setTextColor(Color.BLACK);
+            textview6.setTextColor(Color.BLACK);
+            textview7.setTextColor(Color.BLACK);
+
+            textview.setTextSize(8);
+            textview1.setTextSize(8);
+            textview2.setTextSize(8);
+            textview3.setTextSize(8);
+            textview4.setTextSize(8);
+            textview5.setTextSize(8);
+            textview6.setTextSize(8);
+            textview7.setTextSize(8);
+
+            textview.setPadding(16, 2, 16, 2);
+            textview1.setPadding(16, 2, 16, 2);
+            textview2.setPadding(16, 2, 16, 2);
+            textview3.setPadding(16, 2, 16, 2);
+            textview4.setPadding(16, 2, 16, 2);
+            textview5.setPadding(16, 2, 16, 2);
+            textview6.setPadding(16, 2, 16, 2);
+            textview7.setPadding(16, 2, 16, 2);
+
+            textview.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            textview1.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            textview2.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            textview3.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            textview4.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            textview5.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            textview6.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            textview7.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
+
+//            textview2.setOnClickListener(new View.OnClickListener() {
+//
+//                @Override
+//                public void onClick(View v) {
+//                    // TODO Auto-generated method stub
+//                    Intent myIntent = new Intent(getApplicationContext(), AssignmentPage.class);
+//
+//                    myIntent.putExtra("id", textview4.getText().toString());
+//                    //myIntent.putExtra("key", value); //Optional parameters
+//                    startActivity(myIntent);
+//                }
+//            });
+
+            tr1.addView(textview);
+            tr1.addView(textview1);
+            tr1.addView(textview2);
+            tr1.addView(textview3);
+            tr1.addView(textview4);
+            tr1.addView(textview5);
+            tr1.addView(textview6);
+            tr1.addView(textview7);
+
+            tl.addView(tr1);
+        }
+    }
+}
