@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.orangecoders.nitish.iitdcomplaintportal.Warden_faculty"
+    tools:showIn="@layout/activity_warden_faculty"
+    android:background="#f0e68c"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_marginRight="20dp"
+        android:textStyle="bold"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
+        android:layout_marginTop="72dp"
+        android:layout_height="wrap_content"
+        android:text="Log In as -"
+        android:textSize="36dp"
+        android:textColor="#ffffff"
+        android:background="#ff0000"
+        />
+
+    <Button
+        android:id="@+id/as_warden"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="60dp"
+        android:textAlignment="center"
+        android:layout_marginRight="20dp"
+        android:layout_width="168dp"
+        android:layout_height="30dp"
+        android:text="As Warden"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:textColor="#ffffff"
+        android:background="#ff0000"
+        />
+    <Button
+        android:id="@+id/as_faculty"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:layout_marginRight="20dp"
+        android:layout_width="168dp"
+        android:layout_height="30dp"
+        android:text="As Faculty"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:textColor="#ffffff"
+        android:background="#ff0000"
+        />
+
+</LinearLayout>
