@@ -1,0 +1,7 @@
+This file contains all the deviations we havve made from our initial design.
+
+Firstly, we have made a new table, 'votes_store'. This table stores all the votes by all the users for all the complaints.
+This table consists of three fields - Complaint ID, Table Name, and user name.
+This table can be checked to know whether a user has already voted for the particular complaint or not.
+
+
