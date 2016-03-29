@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:background="#f0e68c"
+    tools:showIn="@layout/activity_main">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="70dp"
+            >
+
+            <TextView
+
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_gravity="center_horizontal"
+                android:textAlignment="center"
+                android:textColor="#111111"
+                android:textSize="24dp"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="IITD Complaint Portal" />
+
+            <TextView
+                android:layout_gravity="center_horizontal"
+                android:textColor="#000000"
+                android:layout_marginTop="16dp"
+                android:textAlignment="center"
+                android:textSize="24dp"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="Log in" />
+
+            <EditText
+                android:layout_gravity="center"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="8dp"
+                android:padding="6dp"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:hint="Username/e-mail"
+                android:id="@+id/editUsename"/>
+
+            <EditText
+                android:id="@+id/editPassword"
+                android:hint="Password"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:padding="6dp"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:password="true" />
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:id="@+id/text"
+                android:textStyle="italic"
+                android:textSize="30dp"
+                android:layout_centerHorizontal="true"
+                android:textColor="#000000"
+                android:gravity="center"
+                android:background="@drawable/abc"
+
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/entered_data"
+                />
+
+            <Button
+                android:id="@+id/buttonLogin"
+                android:layout_marginTop="24dp"
+                android:text="Log in"
+                android:textColor="#ff0000"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:background="#999999"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </Button>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
